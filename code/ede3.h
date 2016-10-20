@@ -1,6 +1,5 @@
 #ifndef EDE3_H
 #define EDE3_H
-
 #include <QtWidgets/QMainWindow>
 #include <QList>
 #include <QString>

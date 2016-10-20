@@ -4,7 +4,6 @@
 #include <math.h>
 #include <QMessageBox>
 #include <QTextCodec>
-#include <QDebug>
 
 EDE3::EDE3(QWidget *parent, Qt::WindowFlags flags)
 	: QMainWindow(parent, flags)
@@ -167,16 +166,16 @@ void EDE3::displayList()
 		blockEditSignals(true);
 		ui.listNameLineEdit->setText(lists[current].name);
 		ui.listNameLineEdit->setCursorPosition(0);
-		ui.probability1DoubleSpinBox->setValue(lists[current].probabilities[0] * 100);
-		ui.probability2DoubleSpinBox->setValue(lists[current].probabilities[1] * 100);
-		ui.probability3DoubleSpinBox->setValue(lists[current].probabilities[2] * 100);
-		ui.probability4DoubleSpinBox->setValue(lists[current].probabilities[3] * 100);
-		ui.probability5DoubleSpinBox->setValue(lists[current].probabilities[4] * 100);
-		ui.probability6DoubleSpinBox->setValue(lists[current].probabilities[5] * 100);
-		ui.probability7DoubleSpinBox->setValue(lists[current].probabilities[6] * 100);
+		ui.probability1DoubleSpinBox->setValue(lists[current].probabilities[0] * 100.f);
+		ui.probability2DoubleSpinBox->setValue(lists[current].probabilities[1] * 100.f);
+		ui.probability3DoubleSpinBox->setValue(lists[current].probabilities[2] * 100.f);
+		ui.probability4DoubleSpinBox->setValue(lists[current].probabilities[3] * 100.f);
+		ui.probability5DoubleSpinBox->setValue(lists[current].probabilities[4] * 100.f);
+		ui.probability6DoubleSpinBox->setValue(lists[current].probabilities[5] * 100.f);
+		ui.probability7DoubleSpinBox->setValue(lists[current].probabilities[6] * 100.f);
 		float combinedProbabilities = (lists[current].probabilities[0] + lists[current].probabilities[1] + lists[current].probabilities[2] + lists[current].probabilities[3] + lists[current].probabilities[4] + lists[current].probabilities[5] + lists[current].probabilities[6]);
-		ui.combinedDropDoubleSpinBox->setValue(combinedProbabilities * 100);
-		lists[current].probability_not = 1 - combinedProbabilities;
+		ui.combinedDropDoubleSpinBox->setValue(combinedProbabilities * 100.f);
+		lists[current].probability_not = 1.f - combinedProbabilities;
 		ui.mobTable->setRowCount(0);
 		ui.mobTable->setRowCount(lists[current].monsterCount);
 		ui.itemTable->setRowCount(0);
@@ -209,8 +208,8 @@ void EDE3::displayList()
 			tot += lists[current].itemProbability[i];
 			
 		}
-		ui.totalDropDoubleSpinBox->setValue(tot * 100);
-		ui.probNotDoubleSpinBox->setValue(lists[current].probability_not * 100);
+		ui.totalDropDoubleSpinBox->setValue(tot * 100.f);
+		ui.probNotDoubleSpinBox->setValue(lists[current].probability_not * 100.f);
 		blockEditSignals(false);
 	}
 	else
@@ -234,8 +233,8 @@ void EDE3::updateList()
 		lists[current].probabilities[5] = (float)ui.probability6DoubleSpinBox->value() / 100.f;
 		lists[current].probabilities[6] = (float)ui.probability7DoubleSpinBox->value() / 100.f;
 		float combinedProbabilities = (lists[current].probabilities[0] + lists[current].probabilities[1] + lists[current].probabilities[2] + lists[current].probabilities[3] + lists[current].probabilities[4] + lists[current].probabilities[5] + lists[current].probabilities[6]);
-		ui.combinedDropDoubleSpinBox->setValue(combinedProbabilities * 100);
-		lists[current].probability_not = 1 - combinedProbabilities;
+		ui.combinedDropDoubleSpinBox->setValue(combinedProbabilities * 100.f);
+		lists[current].probability_not = 1.f - combinedProbabilities;
 		lists[current].monsterCount = ui.mobTable->rowCount();
 		//actually update should happen from the table and consider row count in specific table rather than monster count or 256
 		for(int i = 0; i != lists[current].monsterCount; i++)
@@ -247,12 +246,12 @@ void EDE3::updateList()
 		for(int i = 0; i != 256; i++)
 		{
 			lists[current].itemIds[i] = ui.itemTable->item(i,0)->text().toInt();
-			lists[current].itemProbability[i] = ui.itemTable->item(i, 1)->text().toFloat() / 100;
+			lists[current].itemProbability[i] = ui.itemTable->item(i, 1)->text().toFloat() / 100.f;
 			tot += lists[current].itemProbability[i];
 
 		}
-		ui.totalDropDoubleSpinBox->setValue(tot * 100);
-		ui.probNotDoubleSpinBox->setValue(lists[current].probability_not * 100);
+		ui.totalDropDoubleSpinBox->setValue(tot * 100.f);
+		ui.probNotDoubleSpinBox->setValue(lists[current].probability_not * 100.f);
 	}
 }
 
